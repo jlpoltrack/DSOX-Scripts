@@ -18,6 +18,7 @@ for device in rm.list_resources():
 for key,value in deviceIDNs.items():                                            #Look for 'SO-X' in IDN Response
     if 'SO-X' in value:
         scopeResource = key
+        break
 
 # %%
 scope = rm.open_resource(scopeResource)
