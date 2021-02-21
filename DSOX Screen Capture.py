@@ -31,7 +31,7 @@ print(f'Connected to: {idnResponse}')
 # %%
 from datetime import datetime
 
-fileDate = str(datetime.now()).replace(':','_').replace(' ',' ')[0:19]          #Timestamp
+fileDate = str(datetime.now()).replace(':','_').replace('-','_').replace(' ','_')[0:19]          #Timestamp
 
 scope.write(':HARDcopy:INKSaver 0')                                             #Black Background
 data = scope.query_binary_values(':DISPlay:DATA? PNG, COLOR', datatype='B')     #Request Image Data
