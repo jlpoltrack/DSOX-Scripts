@@ -2,6 +2,7 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 #https://github.com/twam/scpi-scripts
+#https://pyvisa.readthedocs.io/en/1.8/index.html
 import pyvisa
 import time
 
@@ -18,7 +19,7 @@ for device in rm.list_resources():
     deviceIDNs[device] = _IDN
 
 #Look for 'SO-X' in the IDN response, this is likely a DSOX oscilloscope
-for key,value in deviceIDNs.items():                                            #Look for 'SO-X' in IDN Response
+for key,value in deviceIDNs.items():                                            
     if 'SO-X' in value:
         scopeResource = key
         break                                                                   #Break when Oscilloscope Found
@@ -31,14 +32,14 @@ idnResponse = scope.query('*IDN?')
 print(f'Connected to: {idnResponse}')
 
 # %%
-#Create a timestamp for the filename
+#Create a timestamp for the filename, process takes ~2-3 seconds therefore will never overwrite
 from datetime import datetime
 
-fileDate = str(datetime.now()).replace(':','_').replace('-','_').replace(' ','_')[0:19]          #Timestamp
+fileDate = str(datetime.now()).replace(':','_').replace('-','_').replace(' ','_')[0:19]
 
 #Get the screen data from the oscilloscope and write it to the file
 scope.write(':HARDcopy:INKSaver 0')                                             #Black Background
-data = scope.query_binary_values(':DISPlay:DATA? PNG, COLOR', datatype='B')     #Request Image Data
+data = scope.query_binary_values(':DISPlay:DATA? PNG, COLOR', datatype='B')
 newfile=open(f'Capture_{fileDate}.png','wb')
 newfile.write(bytearray(data))
 
