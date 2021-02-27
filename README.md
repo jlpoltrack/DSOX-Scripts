@@ -1,3 +1,4 @@
-# DSOX-Screen-Capture
+# DSOX-Scripts
 
-Simple script to capture screenshots from Agilent/Keysight DSOX/MSOX Oscilloscopes.
+## Scripts to: 
+* Capture screenshots from Agilent/Keysight DSOX/MSOX Oscilloscopes.
