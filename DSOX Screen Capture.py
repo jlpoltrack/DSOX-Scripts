@@ -7,35 +7,38 @@ import time
 
 startTime = time.time()
 
+#Open the resource manager
 rm = pyvisa.ResourceManager()
 
+#Iterate through the resource list, get all the IDN responses
 for device in rm.list_resources():
     deviceIDNs = {}
     _device = rm.open_resource(device)
     _IDN = _device.query('*IDN?')
     deviceIDNs[device] = _IDN
 
+#Look for 'SO-X' in the IDN response, this is likely a DSOX oscilloscope
 for key,value in deviceIDNs.items():                                            #Look for 'SO-X' in IDN Response
     if 'SO-X' in value:
         scopeResource = key
-        break
+        break                                                                   #Break when Oscilloscope Found
 
 # %%
+#Connect to the cscilloscope and set the timeout
 scope = rm.open_resource(scopeResource)
-scope.read_termination = '\n'
-scope.write_termination = '\n'
-scope.timeout = 5000
+scope.timeout = 10000
 idnResponse = scope.query('*IDN?')
 print(f'Connected to: {idnResponse}')
 
 # %%
+#Create a timestamp for the filename
 from datetime import datetime
 
 fileDate = str(datetime.now()).replace(':','_').replace('-','_').replace(' ','_')[0:19]          #Timestamp
 
+#Get the screen data from the oscilloscope and write it to the file
 scope.write(':HARDcopy:INKSaver 0')                                             #Black Background
 data = scope.query_binary_values(':DISPlay:DATA? PNG, COLOR', datatype='B')     #Request Image Data
-
 newfile=open(f'Capture_{fileDate}.png','wb')
 newfile.write(bytearray(data))
 
