@@ -1,4 +1,7 @@
 # DSOX-Scripts
 
-## Scripts to: 
-* Capture screenshots from Agilent/Keysight DSOX/MSOX Oscilloscopes.
+## Scripts that work with Agilent/Keysight DSOX/MSOX Oscilloscopes.
+
+### Current Progress: 
+* Capture screenshots
+* Load arbitrary waveform data
