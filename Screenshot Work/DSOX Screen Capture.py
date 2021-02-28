@@ -12,8 +12,9 @@ startTime = time.time()
 rm = pyvisa.ResourceManager()
 
 #Iterate through the resource list, get all the IDN responses
+deviceIDNs = {}
+
 for device in rm.list_resources():
-    deviceIDNs = {}
     _device = rm.open_resource(device)
     _IDN = _device.query('*IDN?')
     deviceIDNs[device] = _IDN

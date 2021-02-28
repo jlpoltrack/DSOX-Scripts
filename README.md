@@ -4,4 +4,5 @@
 
 ### Current Progress: 
 * Capture screenshots
+* Capture waveform data
 * Load arbitrary waveform data
