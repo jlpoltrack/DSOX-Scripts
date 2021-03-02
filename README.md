@@ -4,5 +4,6 @@
 
 ### Current Progress: 
 * Capture screenshots
+* Capture serial data from the lister
 * Capture waveform data
 * Load arbitrary waveform data
